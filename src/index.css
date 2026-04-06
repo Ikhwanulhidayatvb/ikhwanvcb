@@ -3,9 +3,18 @@
 @tailwind utilities;
 
 /* util yang dipakai komponen */
-.text-gradient{
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-emerald-400;
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 dark:from-sky-400 dark:to-emerald-400;
 }
-.shadow-soft{
-  box-shadow: 0 12px 40px rgba(2,6,23,.35);
+
+.shadow-soft {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+
+.dark .shadow-soft {
+  box-shadow: 0 12px 40px rgba(2, 6, 23, .35);
+}
+
+body {
+  @apply bg-white text-gray-900 dark:bg-slate-900 dark:text-white;
 }
