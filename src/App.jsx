@@ -304,6 +304,14 @@ const Navbar = ({ lang, setLang, theme, setTheme, time }) => {
     { href: "#contact", label: t.nav.contact },
   ]
 
+  const handleScroll = (href) => {
+    const el = document.querySelector(href)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" })
+      setOpen(false) // 🔥 auto close mobile
+    }
+  }
+
   return (
     <nav className="sticky top-0 z-50 backdrop-blur 
       bg-white/80 dark:bg-slate-900/70 
@@ -324,7 +332,7 @@ const Navbar = ({ lang, setLang, theme, setTheme, time }) => {
           </span>
         </a>
 
-        {/* MENU DESKTOP */}
+        {/* DESKTOP MENU */}
         <ul className="hidden md:flex items-center gap-6 text-sm 
           text-gray-700 dark:text-white/70">
           {links.map(l => (
@@ -333,10 +341,7 @@ const Navbar = ({ lang, setLang, theme, setTheme, time }) => {
                 href={l.href}
                 onClick={(e) => {
                   e.preventDefault()
-                  const el = document.querySelector(l.href)
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" })
-                  }
+                  handleScroll(l.href)
                 }}
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.05 }}
@@ -351,55 +356,43 @@ const Navbar = ({ lang, setLang, theme, setTheme, time }) => {
         {/* RIGHT SIDE */}
         <div className="hidden md:flex items-center gap-3">
 
-          {/* JAM */}
           <span className="text-sm text-gray-600 dark:text-white/70">
             {time}
           </span>
 
           {/* LANGUAGE */}
           <div className="flex items-center gap-1 text-xs">
-            <button
-              onClick={() => setLang("en")}
-              className={`px-2 py-1 rounded transition 
-                ${lang === "en"
-                  ? "bg-gray-300 dark:bg-white/20 text-black dark:text-white"
-                  : "text-gray-600 dark:text-white/70"
-                }`}
-            >
-              EN
-            </button>
-
-            <button
-              onClick={() => setLang("id")}
-              className={`px-2 py-1 rounded transition 
-                ${lang === "id"
-                  ? "bg-gray-300 dark:bg-white/20 text-black dark:text-white"
-                  : "text-gray-600 dark:text-white/70"
-                }`}
-            >
-              ID
-            </button>
+            {["en", "id"].map(code => (
+              <button
+                key={code}
+                onClick={() => setLang(code)}
+                className={`px-2 py-1 rounded transition 
+                  ${lang === code
+                    ? "bg-gray-300 dark:bg-white/20 text-black dark:text-white"
+                    : "text-gray-600 dark:text-white/70"
+                  }`}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
           </div>
 
-          {/* THEME TOGGLE */}
+          {/* THEME */}
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="px-3 py-1 rounded 
               bg-gray-200 dark:bg-slate-700 
-              text-gray-800 dark:text-white 
-              text-sm transition"
+              text-gray-800 dark:text-white text-sm"
           >
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
-
         </div>
 
         {/* MOBILE BUTTON */}
         <button
           className="md:hidden inline-flex items-center justify-center rounded-xl 
             border border-gray-300 dark:border-white/10 
-            px-3 py-2 
-            text-gray-700 dark:text-white/80"
+            px-3 py-2 text-gray-700 dark:text-white/80"
           onClick={() => setOpen(v => !v)}
         >
           {open ? <FiX /> : <FiMenu />}
@@ -415,44 +408,38 @@ const Navbar = ({ lang, setLang, theme, setTheme, time }) => {
             border-gray-200 dark:border-white/10 
             bg-white dark:bg-slate-900"
         >
-          <ul className="max-w-6xl mx-auto px-4 sm:px-6 py-3 
-            text-gray-800 dark:text-white/90">
+          <ul className="px-4 py-3 space-y-2 text-gray-800 dark:text-white/90">
 
+            {/* MENU */}
             {links.map(l => (
-              <li key={l.href}>
-                <motion.a
-                  href={l.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    const el = document.querySelector(l.href)
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" })
-                    }
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="hover:text-black dark:hover:text-white transition"
+              <li key={l.href} className="border-b border-gray-200 dark:border-white/10 pb-2">
+                <button
+                  onClick={() => handleScroll(l.href)}
+                  className="w-full text-left hover:text-black dark:hover:text-white transition"
                 >
                   {l.label}
-                </motion.a>
+                </button>
               </li>
             ))}
 
-            <li className="pt-2">
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="inline-block w-full text-center rounded-xl 
-                  border border-gray-300 dark:border-white/10 
-                  bg-gray-200 dark:bg-primary-600/20 
-                  text-gray-800 dark:text-white
-                  px-4 py-2"
-              >
-                {t.nav.hire}
-              </a>
+            {/* LANGUAGE MOBILE */}
+            <li className="pt-3 flex justify-center gap-2 text-xs">
+              {["en", "id"].map(code => (
+                <button
+                  key={code}
+                  onClick={() => setLang(code)}
+                  className={`px-3 py-1 rounded 
+                    ${lang === code
+                      ? "bg-gray-300 dark:bg-white/20 text-black dark:text-white"
+                      : "text-gray-600 dark:text-white/70"
+                    }`}
+                >
+                  {code.toUpperCase()}
+                </button>
+              ))}
             </li>
 
-            {/* MOBILE EXTRA */}
+            {/* TIME + THEME */}
             <li className="pt-4 flex justify-between items-center text-gray-700 dark:text-white/80">
               <span>{time}</span>
 
