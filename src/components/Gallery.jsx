@@ -52,12 +52,11 @@ export const Gallery = ({ data, lang }) => {
                 <button
                     key={tab}
                     onClick={() => handleTabChange(tab)}
-                    className={`
-      px-4 py-2 rounded-xl border transition
-      bg-white text-black border-black/20
-      dark:bg-black/20 dark:text-white dark:border-white/20
-      ${activeTab === tab ? "bg-black text-white dark:bg-white dark:text-black" : ""}
-    `}
+                    className={`px-4 py-2 rounded-xl border transition-all duration-200 transition font-medium ${activeTab === tab
+                        ? "bg-black text-white border-black dark:bg-white dark:text-black dark:border-white"
+                        : "bg-white text-black border-black/20 dark:bg-black/30 dark:text-white dark:border-white/20"
+                        }
+                    `}
                 >
                     {t[safeLang]?.[tab] || tab}
                 </button>
