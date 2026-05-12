@@ -28,11 +28,11 @@ const galleryData = {
     { id: 9, type: "image", src: "images/project1.jpeg" },
     { id: 10, type: "image", src: "images/project2.png" },
     { id: 11, type: "image", src: "images/project3.png" },
-    { id: 12, type: "image", src: "images/project4.png" },
-    { id: 13, type: "image", src: "images/project5.png" },
-    { id: 14, type: "image", src: "images/project6.png" },
-    { id: 15, type: "image", src: "images/project7.png" },
-    { id: 16, type: "image", src: "images/project8.png" },
+    { id: 12, type: "image", src: "images/project4.jpeg" },
+    { id: 13, type: "image", src: "images/project5.jpeg" },
+    { id: 14, type: "image", src: "images/project6.jpeg" },
+    { id: 15, type: "image", src: "images/project7.jpeg" },
+    { id: 16, type: "image", src: "images/project8.jpeg" },
 
   ],
 
